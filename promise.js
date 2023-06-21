@@ -20,3 +20,24 @@ Promise.race(
     new Promise((resole,reject)=> setTimeout(()=> resolve('2'), 3000),
     new Promise((resole,reject)=> setTimeout(()=> resolve('3'), 1000)
 ).then(alert);
+
+
+
+
+function fetchJoke() {
+    return new Promise((resolve,reject)=> {
+        fetch('https://official-joke-api.appspot.com/random_joke').then(resp =>  {
+            if(resp.ok){
+                return resp.json();
+            } else {
+                throw new Error('failed..');
+            }
+        }).then(data=>{
+            resolve(data);
+        }).catch(error=> {
+        reject(error);
+        });
+        
+    });
+}
+fetchJoke().then(data=> console.log(data)).catch(error=> console.error(error));
